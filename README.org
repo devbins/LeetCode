@@ -1,1 +1,2 @@
 * LeetCode
+** [[file:1TwoSum.org][1 Two Sum]] 
