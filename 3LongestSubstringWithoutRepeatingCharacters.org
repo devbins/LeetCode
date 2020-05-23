@@ -1,5 +1,5 @@
 * [#B] 3 [[https://leetcode.com/problems/longest-substring-without-repeating-characters/][Longest Substring Without Repeating Characters - LeetCode]]
-  思路：通过滑动窗口来遍历整个字符串，把遍历过的字符数记录下来，如果有重复数量就会为1。
+  思路：通过滑动窗口来遍历整个字符串，把遍历过的字符数记录下来，如果有重复数量就会为1。在没有重复的情况下滑动窗口的有边界，往右移动，对应字符数 +1。有重复的情况下，滑动窗口的左边界往右移动，同时对应的字符数 -1。
 ** Java
    #+begin_src java
    class Solution {
@@ -23,4 +23,26 @@
            return length;
        }
    }
+   #+end_src
+** CPP
+   #+begin_src cpp
+   class Solution {
+   public:
+       int lengthOfLongestSubstring(string s) {
+           int l = 0;
+           int r = -1;
+           // 别忘了这里要赋初值为 0
+           int freq[256] = {0};
+           int res = 0;
+           while (l < s.size()) {
+               if (r + 1 < s.size() && freq[s[r + 1]] == 0) {
+                   freq[s[++r]]++;
+               }else {
+                   freq[s[l++]]--;
+               }
+               res = max(res, r - l + 1);
+           }
+           return res;
+       }
+   };
    #+end_src
