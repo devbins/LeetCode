@@ -1,4 +1,6 @@
 * [#C] 1 [[https://leetcode.com/problems/two-sum/][Two Sum - LeetCode]] 
+  思路：
+  遍历数组，每一次循环查找是否存在 =target - nums[i]= 。由于要返回的是索引，所以要用 =Map= 来记录数值和索引的对应关系。
 ** Java
    #+begin_src java
    class Solution {
