@@ -1,0 +1,74 @@
+* [#B] 19 [[https://leetcode.com/problems/remove-nth-node-from-end-of-list/][Remove Nth Node From End of List - LeetCode]]
+  思路：
+  要删除最后的第 n 个节点，通常的思路就是遍历整个链表记录一下总共有多少个节点，然后再遍历一遍到 =size - n -1= 处，然后把倒数di n 个删除。
+  
+  除了上面的做法，我们还发现，当遍历到最后一个节点的时候，我们刚好应该在倒数第 n 个节点的前面一个，这样我们就可以在遍历一遍的情况下删除倒数第 n 个。
+
+  通过上面的思路可以想到双指针解法，他们之间的距离是 =n= 。
+** Java
+   #+begin_src java
+   /**
+    ,* Definition for singly-linked list.
+    ,* public class ListNode {
+    ,*     int val;
+    ,*     ListNode next;
+    ,*     ListNode() {}
+    ,*     ListNode(int val) { this.val = val; }
+    ,*     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    ,* }
+    ,*/
+   class Solution {
+       public ListNode removeNthFromEnd(ListNode head, int n) {
+           ListNode dummy = new ListNode(0, head);
+           ListNode p = dummy;
+           ListNode q = dummy;
+           // 添加了 dummy node 所以要 n + 1
+           for (int i = 0; i < n + 1; i++) {
+               p = p.next;   
+           }
+
+           while (p != null) {
+               p = p.next;
+               q = q.next;
+           }
+
+           q.next = q.next.next;
+
+           return dummy.next;
+       }
+   }
+   #+end_src
+** CPP
+   #+begin_src cpp
+   /**
+    ,* Definition for singly-linked list.
+    ,* struct ListNode {
+    ,*     int val;
+    ,*     ListNode *next;
+    ,*     ListNode() : val(0), next(nullptr) {}
+    ,*     ListNode(int x) : val(x), next(nullptr) {}
+    ,*     ListNode(int x, ListNode *next) : val(x), next(next) {}
+    ,* };
+    ,*/
+   class Solution {
+   public:
+       ListNode* removeNthFromEnd(ListNode* head, int n) {
+           ListNode* dummy = new ListNode(0, head);
+           ListNode* p = dummy;
+           ListNode* q = dummy;
+        
+           for (int i = 0; i < n + 1; i++) {
+               q = q->next;
+           }
+        
+           while (q != NULL) {
+               q = q->next;
+               p = p->next;
+           }
+        
+           p->next = p->next->next;
+        
+           return dummy->next;
+       }
+   };
+   #+end_src
