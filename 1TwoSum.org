@@ -1,0 +1,45 @@
+* [#C] 1 [[https://leetcode.com/problems/two-sum/][Two Sum - LeetCode]] 
+** Java
+   #+begin_src java
+   class Solution {
+       public int[] twoSum(int[] nums, int target) {
+           Map<Integer,Integer> map = new HashMap();
+           for (int i = 0; i < nums.length; i++){
+               int res = target - nums[i];
+               if (map.containsKey(res)){
+                   return new int[] {i, map.get(res)};
+               }
+               map.put(nums[i],i);
+           }
+           throw new IllegalArgumentException("No two sum solution");
+       }
+   }
+   #+end_src
+** CPP
+   #+begin_src cpp
+   #include<iostream>
+   #include<vector>
+   #include<cassert>
+   #include<unordered_map>
+
+   using namespace std;
+
+   class Solution {
+   public:
+       vector<int> twoSum(vector<int>& nums, int taget) {
+           unordered_map<int,int> record;
+
+           for (int i = 0; i < nums.size(); i++) {
+               int complement = target - nums[i];
+               if (record.find(complement) != record.end()) {
+                   int res[2] = {i, record[complemente]};
+                   return vector<int>(res,res+2);
+               }
+               // 不能一次性放到map中，这是因为如果有两个数相同会把之前的覆盖，所以要一边查找，一边放入map 中
+               record[nums[i]] = i;
+           }
+
+           throw invalid_argument("the input has no solution");
+       }
+   };
+   #+end_src
