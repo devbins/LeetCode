@@ -1,0 +1,61 @@
+* [#B] [[https://leetcode.com/problems/perfect-squares/][Perfect Squares - LeetCode]]
+  思路：可以看成是图的层序遍历，最先把 n 减到 0 的就是最短路径
+** CPP
+   #+begin_src cpp
+   class Solution {
+   public:
+       int numSquares(int n) {
+           queue<pair<int, int>> q;
+        
+           vector<bool> visted(n + 1, false);
+           visted[n] = true;
+        
+           q.push(make_pair(n, 0));
+        
+           while (!q.empty()) {
+               int num = q.front().first;
+               int step = q.front().second;
+               q.pop();
+               for (int i = 1; ; i++) {
+                   int a = num - i * i;
+                   if (a < 0) break;
+                   if (a == 0) return step + 1;
+                   if (!visted[a]) {
+                       q.push(make_pair(a, step + 1));
+                       visted[a] = true;
+                   }
+                
+               }
+           }
+           throw invalid_argument("No Solution");
+       }
+   };
+   #+end_src
+** Java
+   #+begin_src java
+      class Solution {
+          public int numSquares(int n) {
+              Queue<Integer> q = new LinkedList();
+              Set<Integer> visted = new HashSet();
+              q.offer(n);
+              int level = 0;
+              while (!q.isEmpty()) {
+                  level++;
+                  int size = q.size();
+                  for (int j = 0; j < size; j++) {
+                      int num = q.poll();
+                      for (int i = 1; ;i++){
+                          int a = num - i * i;
+                          if (a < 0) break;
+                          if (a == 0) return level;
+                          if (!visted.contains(a)) {
+                              q.offer(a);
+                              visted.add(a);
+                          }
+                      }
+                  }
+              }
+              return -1;
+          }
+   }
+   #+end_src
