@@ -10,5 +10,6 @@
 ** [[file:111MinimumDepthofBinaryTree.org][111 Minimum Depth of Binary Tree]] 
 ** [[file:112PathSum.org][112 Path Sum]] 
 ** [[file:222CountCompleteTreeNodes.org][222 Count Complete Tree Nodes]] 
+** [[file:257BinaryTreePaths.org][257 Binary Tree Paths]] 
 ** [[file:279PerfectSquares.org][279 Perfect Squares]] 
 ** [[file:347TopKFrequentElements.org][347 Top K Frequent Elements]] 
