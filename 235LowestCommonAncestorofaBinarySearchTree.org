@@ -1,0 +1,83 @@
+* [#C] 235 [[https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/][Lowest Common Ancestor of a Binary Search Tree - LeetCode]]
+** 题目
+   Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
+
+   According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+   Given binary search tree:  root = [6,2,8,0,4,7,9,null,null,3,5]
+   [[file:2020-05-30_21-11-19_binarysearchtree_improved.png]] 
+*** Example 1
+    #+begin_example
+    Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+    Output: 6
+    Explanation: The LCA of nodes 2 and 8 is 6.
+    #+end_example
+*** Example 2
+    #+begin_example
+    Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+    Output: 2
+    Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
+    #+end_example
+*** Note:
+    All of the nodes' values will be unique.
+    
+    p and q are different and both values will exist in the BST.
+** 思路
+   二分搜索树的特点是，左子树小于根节点，右子树大于根节点。
+   
+   如果给出的两个节点都小于根节点，那么最近的公共祖先在左子树中。如果给出的两个节点都大于根节点，那么最近的公共祖先在右子树中。如果两个节点有一个小于根节点另一个大于根节点那么该节点就是最近公共祖先。
+** Java
+   #+begin_src java
+   /**
+    ,* Definition for a binary tree node.
+    ,* public class TreeNode {
+    ,*     int val;
+    ,*     TreeNode left;
+    ,*     TreeNode right;
+    ,*     TreeNode(int x) { val = x; }
+    ,* }
+    ,*/
+   class Solution {
+       public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+           if (root == null) return null;
+
+           if (root.val > p.val && root.val > q.val) {
+               return lowestCommonAncestor(root.left, p, q);
+           }
+
+           if (root.val < p.val && root.val < q.val) {
+               return lowestCommonAncestor(root.right, p, q);
+           }
+
+           return root;
+       }
+   }
+   #+end_src
+** CPP
+   #+begin_src cpp
+   /**
+    ,* Definition for a binary tree node.
+    ,* struct TreeNode {
+    ,*     int val;
+    ,*     TreeNode *left;
+    ,*     TreeNode *right;
+    ,*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    ,* };
+    ,*/
+   class Solution {
+   public:
+       TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+           if (root == NULL) return NULL;
+        
+           if (p->val < root->val && q->val < root->val) {
+               return lowestCommonAncestor(root->left, p, q);
+           }
+        
+           if (p->val > root->val && q->val > root->val) {
+               return lowestCommonAncestor(root->right, p, q);
+           }
+        
+           return root;
+       }
+   };
+   #+end_src
