@@ -3,6 +3,7 @@
 ** [[file:2AddTwoNumbers.org][2 Add Two Numbers]] 
 ** [[file:3LongestSubstringWithoutRepeatingCharacters.org][3 Longest Substring Without Repeating Characters]] 
 ** [[file:19RemoveNthNodeFromEndofList.org][19 Remove Nth Node From End of List - LeetCode]] 
+** [[file:98ValidateBinarySearchTree.org][98 Validate Binary Search Tree]] 
 ** [[file:102BinaryTreeLevelOrderTraversal.org][102 Binary Tree Level Order Traversal]] 
 ** [[file:103BinaryTreeZigzagLevelOrderTraversal.org][103 Binary Tree Zigzag Level Order Traversal]] 
 ** [[file:104MaximumDepthofBinaryTree.org][104 Maximum Depth of Binary Tree]] 
