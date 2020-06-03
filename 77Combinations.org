@@ -1,0 +1,81 @@
+* [#B] 77 [[https://leetcode.com/problems/combinations/][Combinations - LeetCode]]
+** 题目
+   Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+*** Example:
+    #+begin_example
+    Input: n = 4, k = 2
+    Output:
+    [
+      [2,4],
+      [3,4],
+      [2,3],
+      [1,2],
+      [1,3],
+      [1,4],
+    ]
+    #+end_example
+** 思路
+   组合问题，通过回溯，每次从剩下的元素中选一个数。
+** Java
+   #+begin_src java
+   class Solution {
+    
+       List<List<Integer>> res = new ArrayList();
+    
+       public List<List<Integer>> combine(int n, int k) {
+        
+           if (n <= 0 || k <= 0 || k > n) {
+               return res;
+           }
+        
+           generateCombinations(n, k, 1, new ArrayList());
+        
+           return res;
+        
+       }
+    
+       public void generateCombinations(int n, int k, int start, List<Integer> list) {
+           if (list.size() == k) {
+               res.add(list);
+               return;
+           }
+        
+           for (int i = start; i <= n - (k - list.size()) + 1; i++) {
+               list.add(i);
+               generateCombinations(n, k, i + 1, new ArrayList(list));
+               list.remove(list.size() - 1);
+           }
+       }
+   }
+   #+end_src
+** CPP
+   #+begin_src cpp
+   class Solution {
+   public:
+       vector<vector<int>> res;
+    
+       vector<vector<int>> combine(int n, int k) {
+           res.clear();
+        
+           if (n <=0 || k <= 0 || k > n)
+               return res;
+           vector<int> c;
+           generateCombinations(n, k, 1, c);
+        
+           return res;
+       }
+    
+       void generateCombinations(int n, int k, int start, vector<int> &c) {
+           if (c.size() == k) {
+               res.push_back(c);
+               return;
+           }
+        
+           for (int i = start; i <= n - (k - c.size()) + 1; i++) {
+               c.push_back(i);
+               generateCombinations(n, k, i + 1, c);
+               c.pop_back();
+           }
+       }
+   };
+   #+end_src
