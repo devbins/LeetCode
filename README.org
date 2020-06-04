@@ -6,6 +6,7 @@
 ** [[file:19RemoveNthNodeFromEndofList.org][19 Remove Nth Node From End of List - LeetCode]] 
 ** [[file:46Permutations.org][46 Permutations]]
 ** [[file:77Combinations.org][77 Combinations]] 
+** [[file:79WordSearch.org][79 Word Search]] 
 ** [[file:98ValidateBinarySearchTree.org][98 Validate Binary Search Tree]] 
 ** [[file:102BinaryTreeLevelOrderTraversal.org][102 Binary Tree Level Order Traversal]] 
 ** [[file:103BinaryTreeZigzagLevelOrderTraversal.org][103 Binary Tree Zigzag Level Order Traversal]] 
