@@ -5,6 +5,7 @@
 ** [[file:17LetterCombinationsofaPhoneNumber.org][17 Letter Combinations of a Phone Number]] 
 ** [[file:19RemoveNthNodeFromEndofList.org][19 Remove Nth Node From End of List - LeetCode]] 
 ** [[file:46Permutations.org][46 Permutations]]
+** [[file:70ClimbingStairs.org][70 Climbing Stairs]] 
 ** [[file:77Combinations.org][77 Combinations]] 
 ** [[file:79WordSearch.org][79 Word Search]] 
 ** [[file:98ValidateBinarySearchTree.org][98 Validate Binary Search Tree]] 

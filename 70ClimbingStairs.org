@@ -1,0 +1,105 @@
+* [#C] 70 [[https://leetcode.com/problems/climbing-stairs/][Climbing Stairs - LeetCode]] 
+** 题目
+   You are climbing a stair case. It takes n steps to reach to the top.
+
+   Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+   Note: Given n will be a positive integer.
+*** Example 1:
+    #+begin_example
+    Input: 2
+    Output: 2
+    Explanation: There are two ways to climb to the top.
+    1. 1 step + 1 step
+    2. 2 steps
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: 3
+    Output: 3
+    Explanation: There are three ways to climb to the top.
+    1. 1 step + 1 step + 1 step
+    2. 1 step + 2 steps
+    3. 2 steps + 1 step
+    #+end_example
+** 思路
+   每次可以走一个台阶或者两个台阶，这样就会形成一颗递归树，用递归解题非常方便。由于有很多的计算是重复的计算，所以可以把每次计算过的保存下来，下次直接使用。
+   
+   除了递归，也可以使用动态规划来自低向上来解题，下一个台阶的走法，等于上一台阶的走法 + 上两个台阶的走法。
+** 递归解法
+*** Java
+    #+begin_src java
+
+    class Solution {
+
+        Map<Integer, Integer> map = new HashMap();
+
+        public int climbStairs(int n) {
+            if (n == 1) return 1;
+            if (n == 2) return 2;
+            if (map.get(n) == null) {
+                map.put(n, climbStairs(n - 1) + climbStairs(n - 2));
+            }
+
+            return map.get(n);
+
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+        vector<int> memo;
+        int climbStairs(int n) {
+            memo = vector<int>(n + 1, -1);
+            return calcWays(n);
+        }
+        int calcWays(int n) {
+            if (n == 1)
+                return 1;
+            if (n == 2)
+                return 2;
+            if (memo[n] == -1)
+                memo[n] = calcWays(n - 1) + calcWays(n - 2);
+        
+            return memo[n];
+        }
+    };
+    #+end_src
+** 动态规划
+*** Java
+    #+begin_src java
+    class Solution {
+
+        HashMap<Integer, Integer> map = new HashMap();
+
+        public int climbStairs(int n) {
+            map.put(0, 1);
+            map.put(1, 1);
+            for (int i = 2; i <= n; i++) {
+                map.put(i, map.get(i - 1) + map.get(i - 2));
+            }
+            return map.get(n);
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+    
+        int climbStairs(int n) {
+            vector<int> memo = vector<int>(n + 1, -1);
+            memo[0] = 1;
+            memo[1] = 1;
+        
+            for (int i = 2; i <= n; i++) {
+                memo[i] = memo[i - 1] + memo[i - 2];
+            }
+        
+            return memo[n];
+        }
+    
+    };
+    #+end_src
