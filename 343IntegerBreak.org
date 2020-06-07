@@ -1,0 +1,129 @@
+* [#B] 343 [[https://leetcode.com/problems/integer-break/][Integer Break - LeetCode]]
+** 题目
+   Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get.
+*** Example 1:
+    #+begin_example
+    Input: 2
+    Output: 1
+    Explanation: 2 = 1 + 1, 1 × 1 = 1.
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: 10
+    Output: 36
+    Explanation: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36.
+    #+end_example
+** 思路
+   把一个数拆分成多个数的乘积，一个数可以拆成从 [1..n-1]，有 n - 1 中拆法，而这拆出来的每个数以此类推又可以拆出 n - 2 个数，以此得出一颗递归树。递归的结束条件是数字为 2 只能拆为 1 x 1 = 1。
+
+** 递归
+*** Java
+    #+begin_src java
+    class Solution {
+    
+        int[] memo;
+    
+        public int integerBreak(int n) {
+            memo = new int[n + 1];
+            return breakInteger(n);
+        }
+    
+        public int breakInteger(int n) {
+            if (n == 2)
+                return 1;
+            if (n == 1)
+                return 1;
+            if (memo[n] != 0)
+                return memo[n];
+            int res = -1;
+            for (int i = 1; i < n; i++) {
+                res = max3(res, i * (n - i), i * breakInteger(n - i));
+                memo[n] = res;
+            }
+            return memo[n];
+        }
+    
+    
+    
+        public int max3(int a, int b, int c) {
+            return Math.max(a, Math.max(b, c));
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+        vector<int> memo;
+        int integerBreak(int n) {
+            memo = vector<int>(n + 1, -1);
+            return breakInteger(n);
+        }
+    
+        int breakInteger(int n) {
+            if (n == 2)
+                return 1;
+            int res = -1;
+            if (memo[n] != -1)
+                return memo[n];
+            for (int i = 1; i < n; i++) {
+                res = max3(res, i * (n - i), i * breakInteger(n - i));
+                memo[n] = res;
+            }
+            return memo[n];
+        }
+    
+        int max3(int a, int b, int c) {
+            return max(a, max(b, c));
+        }
+    };
+    #+end_src
+** 动态规划
+*** Java
+    #+begin_src java
+    class Solution {
+    
+        public int integerBreak(int n) {
+            int[] memo = new int[n + 1];
+            memo[1] = 1;
+        
+            for (int i = 2; i <= n; i++) {
+                for (int j = 1; j <= i - 1; j++) {
+                    memo[i] = max3(memo[i], j * (i - j), j * memo[i - j]);
+                }
+            }
+            return memo[n];
+        }
+    
+    
+    
+        public int max3(int a, int b, int c) {
+            return Math.max(a, Math.max(b, c));
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+
+        int integerBreak(int n) {
+            vector<int> memo = vector<int>(n + 1, -1);
+        
+            memo[1] = 1;
+            for (int i = 2; i <= n; i++) {
+                for (int j = 1; j <= i - 1; j++) {
+                    memo[i] = max3(memo[i], j * (i - j), j * memo[i -j]);
+                }
+            }
+        
+            return memo[n];
+        }
+    
+    
+    
+        int max3(int a, int b, int c) {
+            return max(a, max(b, c));
+        }
+    };
+    #+end_src
