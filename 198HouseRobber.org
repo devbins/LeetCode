@@ -1,0 +1,139 @@
+* [#C] 198 [[https://leetcode.com/problems/house-robber/][House Robber - LeetCode]]
+** 题目
+   You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+   Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+*** Example 1:
+    #+begin_example
+    Input: nums = [1,2,3,1]
+    Output: 4
+    Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+                 Total amount you can rob = 1 + 3 = 4.
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: nums = [2,7,9,3,1]
+    Output: 12
+    Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+                 Total amount you can rob = 2 + 9 + 1 = 12.
+    #+end_example
+*** Constraints:
+    - 0 <= nums.length <= 100
+    - 0 <= nums[i] <= 400
+** 思路
+   小偷偷第一家店，就不能偷第二家店，但是可以偷第三家店。所以当偷第 i 家店的时候等于选择偷第 i 家店与不选择偷第 i 家店的最大值。也就是 dp[i] = max(nums[i] + dp[i - 2], dp[i - 2])。
+** 递归
+*** Java
+    #+begin_src java
+    class Solution {
+        HashMap<Integer, Integer> map = new HashMap();
+    
+        public int rob(int[] nums) {
+            if (nums == null || nums.length == 0)
+                return 0;
+            return tryRob(nums, 0);
+        }
+    
+        int tryRob(int[] nums, int index) {
+            if (index >= nums.length)
+                return 0;
+            if (map.get(index) != null)
+                return map.get(index);
+            int res = -1;
+            for (int i = index; i < nums.length; i++) {
+                res = Math.max(res, nums[i] + tryRob(nums, i + 2));
+            }
+            map.put(index, res);
+            return res;
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+        vector<int> memo;
+        int rob(vector<int>& nums) {
+            int n = nums.size();
+            if (n == 0)
+                return 0;
+            memo = vector<int>(n, -1);
+            return tryRob(nums, 0);
+        }
+    
+        int tryRob(vector<int>& nums, int index) {
+            if (index >= nums.size())
+                return 0;
+            if (memo[index] != -1)
+                return memo[index];
+            int res = -1;
+        
+            for (int i = index; i < nums.size(); i++)
+                res = max(res, nums[i] + tryRob(nums, i + 2));
+            memo[index] = res;
+            return res;
+        }
+    };
+    #+end_src
+** 动态规划
+*** Java
+    #+begin_src java
+    class Solution {
+        public int rob(int[] nums) {
+            if (nums == null || nums.length == 0)
+                return 0;
+            int n = nums.length;
+            int[] memo = new int[n];
+            memo[n - 1] = nums[n - 1];
+            for (int i = n - 2; i >= 0; i--) {
+                for (int j = i; j < n; j++) {
+                    memo[i] = Math.max(memo[i], nums[j] + (j + 2 < n ? memo[j + 2] : 0));
+                }
+            }
+            return memo[0];
+        }
+    }
+    #+end_src
+    #+begin_src java
+    class Solution {
+        public int rob(int[] nums) {
+            if (nums == null || nums.length == 0)
+                return 0;
+            if (nums.length == 1)
+                return nums[1];
+        
+            int[] dp = new int[nums.length];
+            dp[0] = nums[0];
+            dp[1] = Math.max(nums[0], nums[1]);
+            for (int i = 2; i < nums.length; i++) {
+                dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);;
+            }
+            return dp[nums.length - 1];
+        }
+    }
+
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    class Solution {
+    public:
+    
+        int rob(vector<int>& nums) {
+            int n = nums.size();
+            if (n == 0)
+                return 0;
+            if (n == 1)
+                return nums[0];
+        
+            vector<int> dp = vector<int>(n, -1);
+            dp[0] = nums[0];
+            dp[1] = max(nums[0], nums[1]);
+            for (int i = 2; i < n; i++) {
+                dp[i] = max(nums[i] + dp[i - 2], dp[i - 1]);
+            }
+            return dp[n - 1];
+        }
+    
+
+    };
+    #+end_src
