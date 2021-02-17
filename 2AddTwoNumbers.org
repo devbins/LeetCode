@@ -3,39 +3,83 @@
    - 同时遍历两个链表，取出数值进行相加。
    - 对相加的和进行取余数，得到当前节点的值。
    - 对相加的和做除法，得到的值用来判断是否有进位，参与到下一次循环中
-   
-  #+begin_src java
-  /**
-   ,* Definition for singly-linked list.
-   ,* public class ListNode {
-   ,*     int val;
-   ,*     ListNode next;
-   ,*     ListNode() {}
-   ,*     ListNode(int val) { this.val = val; }
-   ,*     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-   ,* }
-   ,*/
-  class Solution {
-      public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-          int result = 0;
-          ListNode dummy = new ListNode(0);
-          ListNode current = dummy;
-          while (l1!= null || l2 != null) {
-              int x = l1 != null ? l1.val : 0;
-              int y = l2 != null ? l2.val : 0;
-              int sum = result + x + y;
-              // 看看要不要进位
-              result = sum / 10;
-              current.next = new ListNode(sum%10);
-              current = current.next;
-              if (l1 != null) l1 = l1.next;
-              if (l2 != null) l2 = l2.next;
-          }
-          // 处理还有进位的情况
-          if (result > 0) {
-              current.next = new ListNode(result);
-          }
-          return dummy.next;
-      }
-  }
-  #+end_src
+   - 别忘了最后一次加法可能产生进位
+
+** Java
+   #+begin_src java
+   /**
+    ,* Definition for singly-linked list.
+    ,* public class ListNode {
+    ,*     int val;
+    ,*     ListNode next;
+    ,*     ListNode() {}
+    ,*     ListNode(int val) { this.val = val; }
+    ,*     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    ,* }
+    ,*/
+   class Solution {
+       public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+           int result = 0;
+           ListNode dummy = new ListNode(0);
+           ListNode current = dummy;
+           while (l1!= null || l2 != null) {
+               int x = l1 != null ? l1.val : 0;
+               int y = l2 != null ? l2.val : 0;
+               int sum = result + x + y;
+               // 看看要不要进位
+               result = sum / 10;
+               current.next = new ListNode(sum%10);
+               current = current.next;
+               if (l1 != null) l1 = l1.next;
+               if (l2 != null) l2 = l2.next;
+           }
+           // 处理还有进位的情况
+           if (result > 0) {
+               current.next = new ListNode(result);
+           }
+           return dummy.next;
+       }
+   }
+   #+end_src
+
+** CPP
+   #+begin_src cpp
+   /**
+    ,* Definition for singly-linked list.
+    ,* struct ListNode {
+    ,*     int val;
+    ,*     ListNode *next;
+    ,*     ListNode() : val(0), next(nullptr) {}
+    ,*     ListNode(int x) : val(x), next(nullptr) {}
+    ,*     ListNode(int x, ListNode *next) : val(x), next(next) {}
+    ,* };
+    ,*/
+   class Solution {
+   public:
+       ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+           ListNode* dummy = new ListNode();
+           ListNode* cur = dummy;
+           int res = 0;
+           while (l1 != nullptr || l2 != nullptr) {
+               int x = l1 == nullptr ? 0 : l1->val;
+               int y = l2 == nullptr ? 0 : l2->val;
+               int sum = x + y + res;
+               cur->next = new ListNode(sum % 10);
+               cur = cur->next;
+               res = sum / 10;
+            
+               if (l1 != nullptr) {
+                   l1 = l1->next;
+               }
+            
+               if (l2 != nullptr) {
+                   l2 = l2->next;
+               }
+           }
+           if (res > 0) {
+               cur->next = new ListNode(res);
+           }
+           return dummy->next;
+       }
+   };
+   #+end_src
