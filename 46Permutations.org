@@ -80,3 +80,30 @@
        }
    };
    #+end_src
+*** 优化空间复杂度
+    #+begin_src cpp
+    class Solution {
+    public:
+        vector<vector<int>> res;
+    
+        vector<vector<int>> permute(vector<int>& nums) {
+            vector<int> track;
+            backTrack(nums, 0, track);
+            return res;
+        }
+    
+        void backTrack(vector<int>& nums, int index, vector<int>& track) {
+            if (track.size() == nums.size()) {
+                res.push_back(track);
+                return;
+            }
+            for (int i = 0; i < nums.size(); ++i) {
+                if (find(track.begin(), track.end(), nums[i]) == track.end()) {
+                    track.push_back(nums[i]);
+                    backTrack(nums, index + 1, track);
+                    track.pop_back();
+                }
+            }
+        }
+    };
+    #+end_src
