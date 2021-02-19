@@ -1,6 +1,6 @@
 * [#B] 19 [[https://leetcode.com/problems/remove-nth-node-from-end-of-list/][Remove Nth Node From End of List - LeetCode]]
   思路：
-  要删除最后的第 n 个节点，通常的思路就是遍历整个链表记录一下总共有多少个节点，然后再遍历一遍到 =size - n -1= 处，然后把倒数di n 个删除。
+  要删除最后的第 n 个节点，通常的思路就是遍历整个链表记录一下总共有多少个节点，然后再遍历一遍到 =size - n - 1= 处，然后把倒数第 n 个删除。
   
   除了上面的做法，我们还发现，当遍历到最后一个节点的时候，我们刚好应该在倒数第 n 个节点的前面一个，这样我们就可以在遍历一遍的情况下删除倒数第 n 个。
 
