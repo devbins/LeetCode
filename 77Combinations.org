@@ -40,6 +40,10 @@
                return;
            }
         
+           /**
+            ,* 从 n 中取 k 个数，已经取了 list.size 个，剩下 k - list.size
+            ,* 所以只需要把边界往从 n 往前移 k - list.size + 1，也就是 n - (k - list.size) + 1
+            ,*/
            for (int i = start; i <= n - (k - list.size()) + 1; i++) {
                list.add(i);
                generateCombinations(n, k, i + 1, new ArrayList(list));
