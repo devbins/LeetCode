@@ -1,4 +1,25 @@
 * [#B] 103 [[https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/][Binary Tree Zigzag Level Order Traversal - LeetCode]]
+** 题目
+   Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+*** Example 1:
+    [[file:imgs/103_binarytreezigzaglevelordertraversal.jpg]] 
+    #+begin_example
+    Input: root = [3,9,20,null,null,15,7]
+    Output: [[3],[20,9],[15,7]]
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: root = [1]
+    Output: [[1]]
+    #+end_example
+*** Example 3:
+    #+begin_example
+    Input: root = []
+    Output: []
+    #+end_example
+*** Constraints:
+    - The number of nodes in the tree is in the range [0, 2000].
+    - -100 <= Node.val <= 100
 ** Java
    思路：层序遍历，每层遍历顺序会变化一次，通过一个变量来控制是从左往右，还是从右往左。
    #+begin_src java
