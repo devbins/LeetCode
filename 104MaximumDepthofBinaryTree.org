@@ -87,50 +87,85 @@
    }
    #+end_src
 ** 深度优先
-   #+begin_src java
-   /**
-    ,* Definition for a binary tree node.
-    ,* public class TreeNode {
-    ,*     int val;
-    ,*     TreeNode left;
-    ,*     TreeNode right;
-    ,*     TreeNode() {}
-    ,*     TreeNode(int val) { this.val = val; }
-    ,*     TreeNode(int val, TreeNode left, TreeNode right) {
-    ,*         this.val = val;
-    ,*         this.left = left;
-    ,*         this.right = right;
-    ,*     }
-    ,* }
-    ,*/
-   class Solution {
+*** Java
+    #+begin_src java
+    /**
+     ,* Definition for a binary tree node.
+     ,* public class TreeNode {
+     ,*     int val;
+     ,*     TreeNode left;
+     ,*     TreeNode right;
+     ,*     TreeNode() {}
+     ,*     TreeNode(int val) { this.val = val; }
+     ,*     TreeNode(int val, TreeNode left, TreeNode right) {
+     ,*         this.val = val;
+     ,*         this.left = left;
+     ,*         this.right = right;
+     ,*     }
+     ,* }
+     ,*/
+    class Solution {
     
-       public int maxDepth(TreeNode root) {
-           if (root == null) return 0;
-           return dfs(root);
-       }
+        public int maxDepth(TreeNode root) {
+            if (root == null) return 0;
+            return dfs(root);
+        }
     
-       public int dfs(TreeNode node) {
-           int maxLevel = 0;
-           Stack<TreeNode> stack = new Stack();
-           Stack<Integer> depth = new Stack();
-           stack.push(node);
-           depth.push(1);
-           while(!stack.isEmpty()) {
-               TreeNode n = stack.pop();
-               int level = depth.pop();
-               maxLevel = Math.max(maxLevel, level);
-               if (n.left != null) {
-                   stack.push(n.left);
-                   depth.push(level + 1);
-               }
-               if (n.right != null) {
-                   stack.push(n.right);
-                   depth.push(level + 1);
-               }
+        public int dfs(TreeNode node) {
+            int maxLevel = 0;
+            Stack<TreeNode> stack = new Stack();
+            Stack<Integer> depth = new Stack();
+            stack.push(node);
+            depth.push(1);
+            while(!stack.isEmpty()) {
+                TreeNode n = stack.pop();
+                int level = depth.pop();
+                maxLevel = Math.max(maxLevel, level);
+                if (n.left != null) {
+                    stack.push(n.left);
+                    depth.push(level + 1);
+                }
+                if (n.right != null) {
+                    stack.push(n.right);
+                    depth.push(level + 1);
+                }
                
-           }
-           return maxLevel;
-       }
-   }
-   #+end_src
+            }
+            return maxLevel;
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    /**
+     ,* Definition for a binary tree node.
+     ,* struct TreeNode {
+     ,*     int val;
+     ,*     TreeNode *left;
+     ,*     TreeNode *right;
+     ,*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     ,*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     ,*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+     ,* };
+     ,*/
+    class Solution {
+    public:
+        int maxDepth(TreeNode* root) {
+            int level = 0;
+            if (root == nullptr) return level;
+            queue<TreeNode*> q;
+            q.push(root);
+            while(!q.empty()) {
+                level++;
+                int size = q.size();
+                for (int i = 0; i < size; ++i) {
+                    auto node = q.front();
+                    q.pop();
+                    if (node->left != nullptr) q.push(node->left);
+                    if (node->right != nullptr) q.push(node->right);
+                }
+            }
+            return level;
+        }
+    };
+    #+end_src
