@@ -200,4 +200,47 @@
     #+end_src
 *** CPP
     #+begin_src cpp
+    /**
+     ,* Definition for a binary tree node.
+     ,* struct TreeNode {
+     ,*     int val;
+     ,*     TreeNode *left;
+     ,*     TreeNode *right;
+     ,*     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     ,*     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     ,*     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+     ,* };
+     ,*/
+    class Solution {
+    public:
+        int maxDepth(TreeNode* root) {
+            int maxLevel = 0;
+            if (root == nullptr)
+                return maxLevel;
+            stack<TreeNode*> s;
+            stack<int> level;
+            s.push(root);
+            level.push(1);
+            while(!s.empty()) {
+                TreeNode* node = s.top();
+                s.pop();
+                int l = level.top();
+                level.pop();
+                maxLevel = max(l, maxLevel);
+            
+                if (node->left != nullptr) {
+                    s.push(node->left);
+                    level.push(l + 1);
+                }
+            
+                if (node->right != nullptr) {
+                    s.push(node->right);
+                    level.push(l + 1);
+                }
+            
+            }
+            return maxLevel;
+        }
+    
+    };
     #+end_src
