@@ -1,4 +1,30 @@
 * 222 [[https://leetcode.com/problems/count-complete-tree-nodes/][Count Complete Tree Nodes - LeetCode]]
+** 题目
+   Given the root of a complete binary tree, return the number of the nodes in the tree.
+
+   According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+*** Example 1:
+    [[file:imgs/complete.jpg]] 
+    #+begin_example
+    Input: root = [1,2,3,4,5,6]
+    Output: 6
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: root = []
+    Output: 0
+    #+end_example
+*** Example 3:
+    #+begin_example
+    Input: root = [1]
+    Output: 1
+    #+end_example
+*** Constraints:
+    - The number of nodes in the tree is in the range [0, 5 * 104].
+    - 0 <= Node.val <= 5 * 104
+    - The tree is guaranteed to be complete.
+*** Follow up:
+    Traversing the tree to count the number of nodes in the tree is an easy solution but with O(n) complexity. Could you find a faster algorithm?
 ** CPP
    #+begin_src cpp
    /**
