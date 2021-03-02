@@ -27,59 +27,113 @@
    二分搜索树的特点是，左子树小于根节点，右子树大于根节点。
    
    如果给出的两个节点都小于根节点，那么最近的公共祖先在左子树中。如果给出的两个节点都大于根节点，那么最近的公共祖先在右子树中。如果两个节点有一个小于根节点另一个大于根节点那么该节点就是最近公共祖先。
-** Java
-   #+begin_src java
-   /**
-    ,* Definition for a binary tree node.
-    ,* public class TreeNode {
-    ,*     int val;
-    ,*     TreeNode left;
-    ,*     TreeNode right;
-    ,*     TreeNode(int x) { val = x; }
-    ,* }
-    ,*/
-   class Solution {
-       public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-           if (root == null) return null;
+** 递归
+*** Java
+    #+begin_src java
+    /**
+     ,* Definition for a binary tree node.
+     ,* public class TreeNode {
+     ,*     int val;
+     ,*     TreeNode left;
+     ,*     TreeNode right;
+     ,*     TreeNode(int x) { val = x; }
+     ,* }
+     ,*/
+    class Solution {
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) return null;
 
-           if (root.val > p.val && root.val > q.val) {
-               return lowestCommonAncestor(root.left, p, q);
-           }
+            if (root.val > p.val && root.val > q.val) {
+                return lowestCommonAncestor(root.left, p, q);
+            }
 
-           if (root.val < p.val && root.val < q.val) {
-               return lowestCommonAncestor(root.right, p, q);
-           }
+            if (root.val < p.val && root.val < q.val) {
+                return lowestCommonAncestor(root.right, p, q);
+            }
 
-           return root;
-       }
-   }
-   #+end_src
-** CPP
-   #+begin_src cpp
-   /**
-    ,* Definition for a binary tree node.
-    ,* struct TreeNode {
-    ,*     int val;
-    ,*     TreeNode *left;
-    ,*     TreeNode *right;
-    ,*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-    ,* };
-    ,*/
-   class Solution {
-   public:
-       TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-           if (root == NULL) return NULL;
+            return root;
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    /**
+     ,* Definition for a binary tree node.
+     ,* struct TreeNode {
+     ,*     int val;
+     ,*     TreeNode *left;
+     ,*     TreeNode *right;
+     ,*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+     ,* };
+     ,*/
+    class Solution {
+    public:
+        TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+            if (root == NULL) return NULL;
         
-           if (p->val < root->val && q->val < root->val) {
-               return lowestCommonAncestor(root->left, p, q);
-           }
+            if (p->val < root->val && q->val < root->val) {
+                return lowestCommonAncestor(root->left, p, q);
+            }
         
-           if (p->val > root->val && q->val > root->val) {
-               return lowestCommonAncestor(root->right, p, q);
-           }
+            if (p->val > root->val && q->val > root->val) {
+                return lowestCommonAncestor(root->right, p, q);
+            }
         
-           return root;
-       }
-   };
-   #+end_src
-   
+            return root;
+        }
+    };
+    #+end_src
+** 迭代
+*** Java
+    #+begin_src java
+    /**
+     ,* Definition for a binary tree node.
+     ,* public class TreeNode {
+     ,*     int val;
+     ,*     TreeNode left;
+     ,*     TreeNode right;
+     ,*     TreeNode(int x) { val = x; }
+     ,* }
+     ,*/
+    class Solution {
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            while (root != null) {
+                if (root.val > p.val && root.val > q.val) {
+                    root = root.left;
+                } else if (root.val < p.val && root.val < q.val) {
+                    root = root.right;
+                } else {
+                    return root;
+                }
+            }
+            return null;
+        }
+    }
+    #+end_src
+*** CPP
+    #+begin_src cpp
+    /**
+     ,* Definition for a binary tree node.
+     ,* struct TreeNode {
+     ,*     int val;
+     ,*     TreeNode *left;
+     ,*     TreeNode *right;
+     ,*     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+     ,* };
+     ,*/
+    class Solution {
+    public:
+        TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+            while (root != nullptr) {
+                if (root->val > q->val && root->val > p->val) {
+                    root = root->left;
+                } else if (root->val < q->val && root->val < p->val) {
+                    root = root->right;
+                } else {
+                    return root;
+                }
+            }
+            return nullptr;
+        }
+    };
+    #+end_src
