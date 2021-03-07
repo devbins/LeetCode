@@ -1,5 +1,27 @@
 * 347 [[https://leetcode.com/problems/top-k-frequent-elements/][Top K Frequent Elements - LeetCode]]
   思路：用一个 =Map= 统计元素出现的频率，通过小顶堆来实现排序，当堆的容量达到 =k= 时，移除堆顶元素，从而保证堆的里元素出现的频率都是排在 =k= 以后。
+  
+** 题目
+   Given a non-empty array of integers, return the k most frequent elements.
+   
+** Example 1:
+   #+begin_example
+   Input: nums = [1,1,1,2,2,3], k = 2
+   Output: [1,2]
+   #+end_example
+
+** Example 2:
+   #+begin_example
+   Input: nums = [1], k = 1
+   Output: [1]
+   #+end_example
+
+** Note:
+   - You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
+   - Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+   - It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.
+   - You can return the answer in any order.
+
 ** Java
    #+begin_src java
    class Solution {
