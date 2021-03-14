@@ -1,5 +1,25 @@
 * [#B] [[https://leetcode.com/problems/perfect-squares/][Perfect Squares - LeetCode]]
-  思路：可以看成是图的层序遍历，最先把 n 减到 0 的就是最短路径
+** 题目
+   Given an integer n, return the least number of perfect square numbers that sum to n.
+
+   A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+   
+*** Example 1:
+    #+begin_example
+    Input: n = 12
+    Output: 3
+    Explanation: 12 = 4 + 4 + 4.
+    #+end_example
+*** Example 2:
+    #+begin_example
+    Input: n = 13
+    Output: 2
+    Explanation: 13 = 4 + 9.
+    #+end_example
+*** Constraints:
+    - 1 <= n <= 10^{4}
+*** 思路
+       可以看成是图的层序遍历，最先把 n 减到 0 的就是最短路径
 ** CPP
    #+begin_src cpp
    class Solution {
