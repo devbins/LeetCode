@@ -89,9 +89,10 @@
             int[] dp = new int[n + 1];
             for (int i = 1; i <= n; ++i) {
                 dp[i] = i; // 次数最多就是 1 + 1 + 1，1的个数最多和自己一样
-                    for (int j = 1; i - j * j >= 0; ++j) {
-                        dp[i] = Math.min(dp[i], dp[i - j * j] + 1); // 状态转移方程
-                    }
+                for (int j = 1; i - j * j >= 0; ++j) {
+                    // 把 i 拆成 （i - j * j) 和 （j * j) 两部分
+                    dp[i] = Math.min(dp[i], dp[i - j * j] + 1); // 状态转移方程，其实应该是 dp[i - j * j] + dp[j * j] 由于 dp[j * j] 是等于 1，所以简写成 +1
+                }
             }
             return dp[n];
         }
